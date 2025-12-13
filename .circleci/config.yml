@@ -27,6 +27,8 @@ jobs:
           name: Build Frontend
           command: |
             cd udagram/udagram-frontend
+            npm install -f
+            export NODE_OPTIONS=--openssl-legacy-provider
             npm run build || npx ionic build
 
       # Build Backend
