@@ -38,6 +38,28 @@ jobs:
           region: AWS_DEFAULT_REGION
 
       - run:
+          name: Configure AWS credentials (supports session token)
+          command: |
+            mkdir -p ~/.aws
+            cat > ~/.aws/credentials <<EOF
+            [default]
+            aws_access_key_id=${AWS_ACCESS_KEY_ID}
+            aws_secret_access_key=${AWS_SECRET_ACCESS_KEY}
+            EOF
+            
+            if [ -n "${AWS_SESSION_TOKEN:-}" ]; then
+              echo "aws_session_token=${AWS_SESSION_TOKEN}" >> ~/.aws/credentials
+            fi
+            
+            cat > ~/.aws/config <<EOF
+            [default]
+            region=${AWS_DEFAULT_REGION}
+            output=json
+            EOF
+            
+            aws sts get-caller-identity    
+
+      - run:
           name: Install EB CLI + zip
           command: |
             sudo apt-get update
