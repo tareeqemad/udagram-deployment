@@ -1,12 +1,12 @@
-# Pipeline Diagram Description
+# Pipeline Diagram
 
-The CI/CD pipeline follows these steps:
+![CI/CD Pipeline Diagram](./pipeline-diagram.png)
 
-1. Developer pushes code to GitHub.
-2. CircleCI detects changes in the main branch.
-3. Dependencies are installed.
-4. Frontend and backend are built.
-5. Backend is deployed to Elastic Beanstalk.
-6. Frontend files are uploaded to S3.
-
-This pipeline ensures consistent and automated deployments.
+## Flow (High level)
+1. Developer pushes code to GitHub (`main` branch)
+2. CircleCI triggers workflow
+3. Build: install → lint → build (frontend & backend)
+4. Deploy:
+    - `eb setenv` to inject environment variables into Elastic Beanstalk
+    - `eb deploy` to deploy backend
+    - `aws s3 sync` to deploy frontend to S3

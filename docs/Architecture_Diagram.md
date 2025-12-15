@@ -1,10 +1,13 @@
-# Architecture Diagram Description
+# Infrastructure / Architecture Diagram
 
-The Udagram architecture consists of three main components:
+![Infrastructure Diagram](./infrastructure-diagram.png)
 
-1. Users access the frontend hosted on AWS S3.
-2. The frontend sends HTTP requests to the backend API hosted on Elastic Beanstalk.
-3. The backend reads and writes data to a PostgreSQL database hosted on AWS RDS.
+## Components
+- **Frontend**: Hosted on AWS S3 (static website)
+- **Backend API**: Hosted on AWS Elastic Beanstalk
+- **Database**: PostgreSQL on AWS RDS
 
-This architecture allows independent scaling of frontend and backend services.
-Communication between services happens over HTTP and TCP connections.
+## Communication
+- Browser → S3 (HTTP)
+- Frontend → API on Elastic Beanstalk (HTTP)
+- API → RDS PostgreSQL (TCP 5432)
